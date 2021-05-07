@@ -1,5 +1,6 @@
 # silly macOS
 .DS_Store
+mac_sys_int
 
 # build files
 build/
