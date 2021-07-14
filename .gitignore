@@ -26,3 +26,7 @@ xcuserdata/
 *.xcscmblueprint
 ide_profiles/xcode/Debug/
 ide_profiles/xcode/ExtendedKF.build/
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
