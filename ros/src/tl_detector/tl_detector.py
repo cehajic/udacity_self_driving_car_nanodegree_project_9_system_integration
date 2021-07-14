@@ -65,7 +65,6 @@ class TLDetector(object):
             self.waypoints_2d = [[waypoint.pose.pose.position.x,
                                   waypoint.pose.pose.position.y] for waypoint in waypoints.waypoints]
             self.waypoint_tree = KDTree(self.waypoints_2d)
-            print('Tree constructed')
 
     def traffic_cb(self, msg):
         self.lights = msg.lights
@@ -81,7 +80,6 @@ class TLDetector(object):
         self.has_image = True
         self.camera_image = msg
         light_wp, state = self.process_traffic_lights()
-        #print('state: ', state)
 
         '''
         Publish upcoming red lights at camera frequency.
@@ -112,7 +110,6 @@ class TLDetector(object):
             int: index of the closest waypoint in self.waypoints
 
         """
-        #TODO implement
         closest_idx = -1
 
         # make sure everything is initialized
@@ -138,11 +135,11 @@ class TLDetector(object):
 
         cv_image = self.bridge.imgmsg_to_cv2(self.camera_image, "bgr8")
 
-        #Get classification
-        #light_state = self.light_classifier.get_classification(cv_image)
+        # use the groundtruth - works only in simulation
         light_state = light.state
-        
-        #print('light_state: ', light_state)
+
+        # TODO: Use classification (not implemented)
+        # light_state = self.light_classifier.get_classification(cv_image)
 
         return light_state
 
@@ -165,7 +162,7 @@ class TLDetector(object):
             car_position = self.get_closest_waypoint(self.pose.pose.position.x, self.pose.pose.position.y)
             diff = len(self.waypoints.waypoints)
 
-            #TODO find the closest visible traffic light (if one exists)
+            #Find the closest visible traffic light (if one exists)
 
             for i, light in enumerate(self.lights):
                 line = stop_line_positions[i]
